@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Tech Spark Academy RAG System — High-performance multi-language intelligence engine with near-zero latency vector search and AI-powered code assistance.">
+    <title>Tech Spark Academy RAG — Intelligence Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- ─── Ambient Background ─── -->
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- ─── App Container ─── -->
+    <div id="app" class="app-container">
+
+        <!-- ─── Sidebar ─── -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="logo.png" alt="Tech Spark Academy Logo" class="logo-image">
+                    <div class="logo-text">
+                        <h1>Tech Spark Academy</h1>
+                        <span class="logo-sub">RAG Intelligence</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card" id="stat-docs">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Documents</span>
+                </div>
+                <div class="stat-card" id="stat-chunks">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Chunks</span>
+                </div>
+                <div class="stat-card" id="stat-dims">
+                    <span class="stat-value">—</span>
+                    <span class="stat-label">Dimensions</span>
+                </div>
+                <div class="stat-card" id="stat-langs">
+                    <span class="stat-value">30+</span>
+                    <span class="stat-label">Languages</span>
+                </div>
+            </div>
+
+            <!-- Document List -->
+            <div class="doc-section">
+                <div class="doc-section-header">
+                    <h3>Knowledge Base</h3>
+                    <button id="btn-refresh-docs" class="btn-icon" title="Refresh">⟳</button>
+                </div>
+                <div id="doc-list" class="doc-list">
+                    <div class="doc-empty">
+                        <span class="doc-empty-icon">📂</span>
+                        <p>No documents yet</p>
+                        <p class="doc-empty-sub">Upload files to build your knowledge base</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload Zone -->
+            <div id="upload-zone" class="upload-zone">
+                <div class="upload-zone-content">
+                    <span class="upload-icon">⬆</span>
+                    <p>Drop files here or <label for="file-input" class="upload-link">browse</label></p>
+                    <p class="upload-hint">Supports 30+ file types</p>
+                </div>
+                <input type="file" id="file-input" multiple
+                    accept=".js,.mjs,.cjs,.ts,.tsx,.jsx,.py,.java,.cpp,.cc,.cxx,.c,.h,.cs,.go,.rs,.rb,.php,.swift,.kt,.scala,.r,.sql,.sh,.bash,.ps1,.md,.txt,.json,.yaml,.yml,.xml,.html,.htm,.css"
+                    hidden>
+            </div>
+
+            <!-- Upload Progress -->
+            <div id="upload-progress" class="upload-progress hidden">
+                <div class="upload-progress-bar">
+                    <div id="upload-bar" class="upload-bar"></div>
+                </div>
+                <span id="upload-status" class="upload-status">Uploading...</span>
+            </div>
+        </aside>
+
+        <!-- ─── Main Content ─── -->
+        <main class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="mode-selector">
+                    <button class="mode-btn active" data-mode="answer" id="mode-answer">
+                        <span class="mode-icon">💡</span> Answer
+                    </button>
+                    <button class="mode-btn" data-mode="explain" id="mode-explain">
+                        <span class="mode-icon">📖</span> Explain
+                    </button>
+                    <button class="mode-btn" data-mode="debug" id="mode-debug">
+                        <span class="mode-icon">🔍</span> Debug
+                    </button>
+                    <button class="mode-btn" data-mode="optimize" id="mode-optimize">
+                        <span class="mode-icon">⚡</span> Optimize
+                    </button>
+                    <button class="mode-btn" data-mode="generate" id="mode-generate">
+                        <span class="mode-icon">🛠️</span> Generate
+                    </button>
+                    <button class="mode-btn" data-mode="fix" id="mode-fix">
+                        <span class="mode-icon">🔧</span> Fix Code
+                    </button>
+                </div>
+                <div class="latency-bar">
+                    <div class="latency-chip" id="latency-search">
+                        <span class="latency-dot search"></span>
+                        <span>Search: <strong>—</strong></span>
+                    </div>
+                    <div class="latency-chip" id="latency-gen">
+                        <span class="latency-dot gen"></span>
+                        <span>Generate: <strong>—</strong></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Response Area -->
+            <div id="response-area" class="response-area">
+                <!-- Welcome Screen -->
+                <div id="welcome-screen" class="welcome-screen">
+                    <div class="welcome-hero">
+                        <div class="welcome-glow"></div>
+                        <img src="logo.png" alt="Tech Spark Academy Logo" class="welcome-logo">
+                        <h2>Tech Spark Academy RAG Engine</h2>
+                        <p class="welcome-tagline">Intelligence at the speed of thought</p>
+                    </div>
+                    <div class="welcome-features">
+                        <div class="feature-card">
+                            <span class="feature-icon">⚡</span>
+                            <h4>Millisecond Search</h4>
+                            <p>HNSW vector indexing with hybrid BM25 fusion</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🌐</span>
+                            <h4>Multi-Language</h4>
+                            <p>30+ programming languages with smart chunking</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🧠</span>
+                            <h4>Deep Reasoning</h4>
+                            <p>Context-aware AI with 6 intelligence modes</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🔧</span>
+                            <h4>Auto Fix Code</h4>
+                            <p>Paste any code — auto-detects errors and fixes them</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Response Content (hidden initially) -->
+                <div id="response-content" class="response-content hidden">
+                    <!-- Sources -->
+                    <div id="sources-panel" class="sources-panel hidden">
+                        <h4 class="sources-title">📎 Sources</h4>
+                        <div id="sources-list" class="sources-list"></div>
+                    </div>
+                    <!-- AI Response -->
+                    <div id="response-text" class="response-text"></div>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div id="loading-indicator" class="loading-indicator hidden">
+                    <div class="loader-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <p>Searching knowledge base...</p>
+                </div>
+            </div>
+
+            <!-- Query Input -->
+            <div class="query-bar">
+                <div class="query-input-wrapper">
+                    <textarea id="query-input" class="query-input" placeholder="Ask anything or paste code to fix..."
+                        rows="1"></textarea>
+                    <button id="btn-send" class="btn-send" title="Send (Enter)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                    <button id="btn-stop" class="btn-stop hidden" title="Stop generation">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                        </svg>
+                    </button>
+                </div>
+                <p class="query-hint">Press <kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for new line</p>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

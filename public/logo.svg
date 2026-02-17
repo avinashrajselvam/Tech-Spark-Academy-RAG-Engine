@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16161f;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7c5cfc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="250" cy="250" r="240" fill="url(#grad1)" stroke="url(#grad2)" stroke-width="10" />
+  <path d="M250 50 L420 120 V220 C420 330 350 430 250 460 C150 430 80 330 80 220 V120 Z" fill="none" stroke="url(#grad2)" stroke-width="15" />
+  <path d="M250 150 L300 250 L220 250 L270 350 L180 250 L260 250 Z" fill="url(#grad2)" />
+  <text x="50%" y="420" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-weight="bold" font-size="40">TECH SPARK</text>
+</svg>

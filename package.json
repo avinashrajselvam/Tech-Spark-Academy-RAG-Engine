@@ -1,0 +1,25 @@
+{
+  "name": "tech-spark-academy-rag",
+  "version": "1.0.0",
+  "description": "High-performance Tech Spark Academy RAG System — real-time multi-language intelligence with near-zero latency",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "rag",
+    "vector-search",
+    "embeddings",
+    "retrieval-augmented-generation"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@xenova/transformers": "^2.17.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}
